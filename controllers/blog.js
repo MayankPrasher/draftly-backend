@@ -91,8 +91,7 @@ const getUserBlogs = async (req , res) =>{
 try{
 const blogs = await Blog.find({author:req.user.id})
 .populate("author", "username profilePicture")
-.sort({createdAt : -1})
-.lean();
+.sort({createdAt : -1});
 
 const totalBlogs = await Blog.countDocuments({author:req.user.id , isPublished : true });
 
