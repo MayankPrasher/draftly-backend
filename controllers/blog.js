@@ -87,6 +87,27 @@ const getAllBlogs = async (req, res) => {
   }
 };
 
+const getUserBlogs = async (req , res) =>{
+try{
+const blogs = await Blog.find({author:req.user.id})
+.populate("author", "username profilePicture")
+.sort({createdAt : -1})
+.lean();
+
+const totalBlogs = await Blog.countDocuments({author:req.user.id , isPublished : true });
+
+res.status(200).json({
+  success : true ,
+  msg : "Successfully fetched all blogs of user",
+  blogs : blogs,
+  meta : {
+    totalBlogs : totalBlogs
+  },
+});
+}catch(error){
+   res.status(500).json({ success: false,msg:"Server Error" ,error: error.message });
+}
+};
 const createBlog = async (req, res) => {
   try {
     const { title, content, expert, tags, category } = req.body;

@@ -15,6 +15,7 @@ const authMiddleware = require("../middlewares/auth");
 const router = express.Router();
 
 router.get("/", getAllBlogs);
+router.get("/user",authMiddleware, getAllBlogs);
 router.post("/", authMiddleware, upload.single("image"), createBlog);
 router.get("/:id", getBlogById);
 router.put("/:id", authMiddleware, upload.single("image"), updateBlog);
