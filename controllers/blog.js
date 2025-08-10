@@ -231,6 +231,6 @@ module.exports = {
   getBlogById,
   updateBlog,
   deleteBlog,
-
+  getUserBlogs,
   toggleLikeBlog,
 };

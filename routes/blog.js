@@ -8,6 +8,7 @@ const {
   updateBlog,
   deleteBlog,
   toggleLikeBlog,
+  getUserBlogs,
 } = require("../controllers/blog");
 
 const authMiddleware = require("../middlewares/auth");
@@ -15,7 +16,7 @@ const authMiddleware = require("../middlewares/auth");
 const router = express.Router();
 
 router.get("/", getAllBlogs);
-router.get("/user",authMiddleware, getAllBlogs);
+router.get("/user",authMiddleware, getUserBlogs);
 router.post("/", authMiddleware, upload.single("image"), createBlog);
 router.get("/:id", getBlogById);
 router.put("/:id", authMiddleware, upload.single("image"), updateBlog);
